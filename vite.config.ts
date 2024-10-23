@@ -1,4 +1,8 @@
+import mdx from "@mdx-js/rollup";
 import { vitePlugin as remix } from "@remix-run/dev";
+import { rehypePrettyCode } from "rehype-pretty-code";
+import remarkFrontmatter from "remark-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
@@ -10,6 +14,11 @@ declare module "@remix-run/node" {
 
 export default defineConfig({
   plugins: [
+    tsconfigPaths(),
+    mdx({
+      remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter],
+      rehypePlugins: [rehypePrettyCode],
+    }),
     remix({
       future: {
         v3_fetcherPersist: true,
@@ -19,6 +28,8 @@ export default defineConfig({
         v3_lazyRouteDiscovery: true,
       },
     }),
-    tsconfigPaths(),
   ],
+  optimizeDeps: {
+    exclude: ["@resvg/resvg-js"],
+  },
 });

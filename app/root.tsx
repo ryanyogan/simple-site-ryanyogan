@@ -1,3 +1,4 @@
+import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -5,7 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
 
@@ -31,8 +31,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="antialiased tracking-tight">
+        <div className="min-h-screen flex flex-col justify-between pt-0 md:pt-8 p-8 bg-white text-gray-900">
+          <main className="max-w-[60ch] mx-auto w-full space-y-6">
+            {children}
+          </main>
+          <Footer />
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -42,4 +47,31 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return <Outlet />;
+}
+
+function Footer() {
+  const links = [
+    { name: "@ryanyogan", url: "https://x.com/ryanyogan" },
+    { name: "youtube", url: "https://www.youtube.com/ryanyogan" },
+    { name: "linkedin", url: "https://www.linkedin.com/in/ryanyogan" },
+    { name: "github", url: "https://github.com/ryanyogan" },
+  ];
+
+  return (
+    <footer className="mt-12 text-center">
+      <div className="flex justify-center space-x-4 tracking-tight">
+        {links.map((link) => (
+          <a
+            key={link.name}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-blue-500 transition-colors duration-200"
+          >
+            {link.name}
+          </a>
+        ))}
+      </div>
+    </footer>
+  );
 }
