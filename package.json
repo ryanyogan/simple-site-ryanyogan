@@ -25,6 +25,7 @@
     "sugar-high": "^0.7.1"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9",
     "@mdx-js/rollup": "^3.1.0",
     "@remix-run/dev": "^2.13.1",
     "@tailwindcss/typography": "^0.5.15",
